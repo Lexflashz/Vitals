@@ -4,9 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#09090d">
     <title>Vitals — Gaming Performance Overlay</title>
-    <meta name="description" content="Vitals is a lightweight gaming overlay for monitoring FPS, CPU and GPU temperatures, with customizable heat warnings and automatic idle detection.">
-    
+    <meta name="description" content="Vitals is a lightweight Windows gaming overlay for monitoring FPS, CPU and GPU temperatures, with customizable heat warnings and automatic idle detection.">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -55,7 +56,7 @@
             margin: auto;
         }
 
-        /* NAVBAR */
+        /* NAVIGATION */
 
         nav {
             position: sticky;
@@ -248,7 +249,7 @@
             font-size: 12px;
         }
 
-        /* MOCK OVERLAY */
+        /* OVERLAY PREVIEW */
 
         .preview-section {
             padding: 30px 0 100px;
@@ -442,7 +443,7 @@
             line-height: 1.8;
         }
 
-        /* WHY VITALS */
+        /* ABOUT */
 
         .why-section {
             background: linear-gradient(180deg, transparent, rgba(139,92,246,0.04), transparent);
@@ -736,341 +737,370 @@
 
 <body>
 
-<!-- NAVBAR -->
+    <!-- NAVIGATION -->
 
-<nav>
-    <div class="container nav-inner">
-        <a href="#" class="brand">
-            <img src="vitals-logo.png" alt="Vitals Logo">
-            Vitals<span>.</span>
-        </a>
+    <nav>
+        <div class="container nav-inner">
 
-        <div class="nav-links">
-            <a href="#features">Features</a>
-            <a href="#about">About</a>
-            <a href="#support">Support</a>
-            <a href="#download" class="nav-download">Download</a>
-        </div>
-    </div>
-</nav>
-
-<!-- HERO -->
-
-<section class="hero">
-    <div class="container hero-content">
-
-        <img src="vitals-logo.png" alt="Vitals Performance Overlay" class="hero-logo">
-
-        <div class="badge">
-            <span class="badge-dot"></span>
-            Lightweight Gaming Overlay
-        </div>
-
-        <h1>
-            Know your PC.<br>
-            <span>Know your performance.</span>
-        </h1>
-
-        <p class="hero-description">
-            Monitor your FPS, CPU temperature and GPU temperature
-            while gaming. A simple, lightweight and customizable
-            overlay designed to keep you informed without getting
-            in the way.
-        </p>
-
-        <div class="hero-buttons">
-            <a href="https://github.com/Lexflashz/Vitals/releases/download/v1.0.0/Vitals.Overlay.exe"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="button button-primary">
-                ↓ Download Vitals
-            </a>
-
-            <a href="#features" class="button button-secondary">
-                Explore Features →
-            </a>
-        </div>
-
-        <div class="windows-notice">
-            Currently available for Windows
-        </div>
-
-    </div>
-</section>
-
-<!-- OVERLAY PREVIEW -->
-
-<section class="preview-section">
-    <div class="container">
-        <div class="preview-container">
-
-            <div class="preview-glow"></div>
-
-            <div class="overlay-preview">
-
-                <div class="overlay-header">
-                    <div class="overlay-brand">
-                        <img src="vitals-logo.png" alt="">
-                        Vitals
-                    </div>
-
-                    <div class="live-indicator">
-                        Monitoring
-                    </div>
-                </div>
-
-                <div class="stats-grid">
-
-                    <div class="stat">
-                        <div class="stat-label">Frame Rate</div>
-                        <div class="stat-value stat-purple">
-                            144 <small>FPS</small>
-                        </div>
-                        <div class="stat-footer">
-                            Performance monitoring
-                        </div>
-                    </div>
-
-                    <div class="stat">
-                        <div class="stat-label">CPU Temperature</div>
-                        <div class="stat-value">
-                            58 <small>°C</small>
-                        </div>
-                        <div class="stat-footer">
-                            Processor temperature
-                        </div>
-                    </div>
-
-                    <div class="stat">
-                        <div class="stat-label">GPU Temperature</div>
-                        <div class="stat-value stat-yellow">
-                            67 <small>°C</small>
-                        </div>
-                        <div class="stat-footer">
-                            Graphics temperature
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-
-            <p class="preview-caption">
-                Illustrative preview — actual readings depend on your hardware and workload.
-            </p>
-
-        </div>
-    </div>
-</section>
-
-<!-- FEATURES -->
-
-<section class="section" id="features">
-    <div class="container">
-
-        <div class="section-heading">
-            <div class="section-label">Features</div>
-            <h2>Everything you need.<br>Nothing you don't.</h2>
-            <p class="section-description">
-                Vitals gives you essential performance information
-                without the complexity of traditional monitoring software.
-            </p>
-        </div>
-
-        <div class="features-grid">
-
-            <div class="feature-card">
-                <div class="feature-icon">🎮</div>
-                <h3>FPS Monitoring</h3>
-                <p>
-                    Keep track of your game's frame rate
-                    with an easy-to-read FPS counter.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🌡️</div>
-                <h3>CPU & GPU Temperatures</h3>
-                <p>
-                    Monitor processor and graphics card temperatures
-                    while you're playing.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🔥</div>
-                <h3>Heat Warnings</h3>
-                <p>
-                    Set your own temperature limits and receive
-                    visual warnings when your hardware gets too hot.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🎨</div>
-                <h3>Customizable Overlay</h3>
-                <p>
-                    Adjust the appearance of your overlay
-                    to suit your preferences and gaming setup.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">⚡</div>
-                <h3>Automatic Idle Mode</h3>
-                <p>
-                    When you're not gaming, Vitals automatically
-                    hides and pauses hardware monitoring.
-                </p>
-            </div>
-
-            <div class="feature-card">
-                <div class="feature-icon">🪶</div>
-                <h3>Lightweight</h3>
-                <p>
-                    Designed to keep things simple, without
-                    unnecessary background monitoring.
-                </p>
-            </div>
-
-        </div>
-    </div>
-</section>
-
-<!-- ABOUT -->
-
-<section class="section why-section" id="about">
-    <div class="container">
-
-        <div class="why-grid">
-
-            <div class="why-content">
-                <div class="section-label">Why Vitals?</div>
-
-                <h2>Performance monitoring, simplified.</h2>
-
-                <p>
-                    Traditional monitoring setups can require several
-                    applications running simultaneously. Vitals brings
-                    essential gaming performance information into
-                    one standalone overlay.
-                </p>
-
-                <p>
-                    No need to configure RTSS, HWiNFO, MSI Afterburner
-                    or Steam just to see your FPS and temperatures.
-                </p>
-
-                <ul class="check-list">
-                    <li><span class="check">✓</span> Standalone application</li>
-                    <li><span class="check">✓</span> No RTSS requirement</li>
-                    <li><span class="check">✓</span> No HWiNFO requirement</li>
-                    <li><span class="check">✓</span> No MSI Afterburner requirement</li>
-                    <li><span class="check">✓</span> No Steam requirement</li>
-                    <li><span class="check">✓</span> Automatic idle detection</li>
-                </ul>
-            </div>
-
-            <div class="why-card">
-
+            <a href="#" class="brand">
                 <img src="vitals-logo.png" alt="Vitals Logo">
+                Vitals<span>.</span>
+            </a>
 
-                <h3>Built for gamers.</h3>
+            <div class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#about">About</a>
+                <a href="#support">Support</a>
 
-                <p>
-                    Vitals was created to provide a simple way
-                    to check gaming performance without cluttering
-                    your system with multiple monitoring tools.
-                    <br><br>
-
-                    <span class="highlight">
-                        Essential information, when you need it.
-                    </span>
-                    Nothing more than necessary.
-                </p>
-
+                <a href="https://github.com/Lexflashz/Vitals/releases/download/v1.0.0/Vitals.Overlay.exe"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="nav-download">
+                    Download
+                </a>
             </div>
 
         </div>
-    </div>
-</section>
+    </nav>
 
-<!-- DOWNLOAD -->
+    <!-- HERO -->
 
-<section class="download-section" id="download">
-    <div class="container">
+    <section class="hero">
+        <div class="container hero-content">
 
-        <div class="download-card">
-            <div class="download-content">
+            <img src="vitals-logo.png"
+                 alt="Vitals Performance Overlay"
+                 class="hero-logo">
 
-                <img src="vitals-logo.png"
-                     alt="Vitals Logo"
-                     class="download-logo">
+            <div class="badge">
+                <span class="badge-dot"></span>
+                Lightweight Gaming Overlay
+            </div>
 
-                <h2>Ready to try Vitals?</h2>
+            <h1>
+                Know your PC.<br>
+                <span>Know your performance.</span>
+            </h1>
 
-                <p>
-                    Download the standalone Windows application
-                    and start monitoring your gaming performance.
-                </p>
+            <p class="hero-description">
+                Monitor your FPS, CPU temperature and GPU temperature
+                while gaming. A simple, lightweight and customizable
+                overlay designed to keep you informed without getting
+                in the way.
+            </p>
 
-                <a href="https://www.mediafire.com/file/2stdy8jgo52908v/Vitals_Overlay.exe/file"
+            <div class="hero-buttons">
+
+                <a href="https://github.com/Lexflashz/Vitals/releases/download/v1.0.0/Vitals.Overlay.exe"
                    target="_blank"
                    rel="noopener noreferrer"
                    class="button button-primary">
                     ↓ Download Vitals
                 </a>
 
-                <div class="download-details">
-                    Windows · Standalone Application
-                </div>
+                <a href="#features" class="button button-secondary">
+                    Explore Features →
+                </a>
 
             </div>
+
+            <div class="windows-notice">
+                Currently available for Windows
+            </div>
+
         </div>
+    </section>
 
-    </div>
-</section>
+    <!-- OVERLAY PREVIEW -->
 
-<!-- SUPPORT -->
+    <section class="preview-section">
+        <div class="container">
 
-<section class="support-section" id="support">
-    <div class="container">
+            <div class="preview-container">
 
-        <div class="support-card">
+                <div class="preview-glow"></div>
 
-            <div>
-                <h3>Need help or have feedback?</h3>
-                <p>
-                    Have a question, found a bug, or want to suggest
-                    a feature? Feel free to get in touch.
+                <div class="overlay-preview">
+
+                    <div class="overlay-header">
+
+                        <div class="overlay-brand">
+                            <img src="vitals-logo.png" alt="">
+                            Vitals
+                        </div>
+
+                        <div class="live-indicator">
+                            Monitoring
+                        </div>
+
+                    </div>
+
+                    <div class="stats-grid">
+
+                        <div class="stat">
+                            <div class="stat-label">Frame Rate</div>
+                            <div class="stat-value stat-purple">
+                                144 <small>FPS</small>
+                            </div>
+                            <div class="stat-footer">
+                                Performance monitoring
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <div class="stat-label">CPU Temperature</div>
+                            <div class="stat-value">
+                                58 <small>°C</small>
+                            </div>
+                            <div class="stat-footer">
+                                Processor temperature
+                            </div>
+                        </div>
+
+                        <div class="stat">
+                            <div class="stat-label">GPU Temperature</div>
+                            <div class="stat-value stat-yellow">
+                                67 <small>°C</small>
+                            </div>
+                            <div class="stat-footer">
+                                Graphics temperature
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <p class="preview-caption">
+                    Illustrative preview — actual readings depend on your hardware and workload.
+                </p>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+
+    <section class="section" id="features">
+        <div class="container">
+
+            <div class="section-heading">
+                <div class="section-label">Features</div>
+
+                <h2>
+                    Everything you need.<br>
+                    Nothing you don't.
+                </h2>
+
+                <p class="section-description">
+                    Vitals gives you essential performance information
+                    without the complexity of traditional monitoring software.
                 </p>
             </div>
 
-            <a href="mailto:vitalsoverlay@gmail.com"
-               class="support-link">
-                vitalsoverlay@gmail.com →
-            </a>
+            <div class="features-grid">
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎮</div>
+                    <h3>FPS Monitoring</h3>
+                    <p>
+                        Keep track of your game's frame rate
+                        with an easy-to-read FPS counter.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🌡️</div>
+                    <h3>CPU & GPU Temperatures</h3>
+                    <p>
+                        Monitor processor and graphics card temperatures
+                        while you're playing.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🔥</div>
+                    <h3>Heat Warnings</h3>
+                    <p>
+                        Set your own temperature limits and receive
+                        visual warnings when your hardware gets too hot.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🎨</div>
+                    <h3>Customizable Overlay</h3>
+                    <p>
+                        Adjust the appearance of your overlay
+                        to suit your preferences and gaming setup.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Automatic Idle Mode</h3>
+                    <p>
+                        When you're not gaming, Vitals automatically
+                        hides and pauses hardware monitoring.
+                    </p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">🪶</div>
+                    <h3>Lightweight</h3>
+                    <p>
+                        Designed to keep things simple, without
+                        unnecessary background monitoring.
+                    </p>
+                </div>
+
+            </div>
 
         </div>
+    </section>
 
-    </div>
-</section>
+    <!-- ABOUT -->
 
-<!-- FOOTER -->
+    <section class="section why-section" id="about">
+        <div class="container">
 
-<footer>
-    <div class="container footer-inner">
+            <div class="why-grid">
 
-        <div class="footer-brand">
-            <img src="vitals-logo.png" alt="Vitals">
-            Vitals
+                <div class="why-content">
+
+                    <div class="section-label">Why Vitals?</div>
+
+                    <h2>Performance monitoring, simplified.</h2>
+
+                    <p>
+                        Traditional monitoring setups can require several
+                        applications running simultaneously. Vitals brings
+                        essential gaming performance information into
+                        one standalone overlay.
+                    </p>
+
+                    <p>
+                        No need to configure RTSS, HWiNFO, MSI Afterburner
+                        or Steam just to see your FPS and temperatures.
+                    </p>
+
+                    <ul class="check-list">
+                        <li><span class="check">✓</span> Standalone application</li>
+                        <li><span class="check">✓</span> No RTSS requirement</li>
+                        <li><span class="check">✓</span> No HWiNFO requirement</li>
+                        <li><span class="check">✓</span> No MSI Afterburner requirement</li>
+                        <li><span class="check">✓</span> No Steam requirement</li>
+                        <li><span class="check">✓</span> Automatic idle detection</li>
+                    </ul>
+
+                </div>
+
+                <div class="why-card">
+
+                    <img src="vitals-logo.png" alt="Vitals Logo">
+
+                    <h3>Built for gamers.</h3>
+
+                    <p>
+                        Vitals was created to provide a simple way
+                        to check gaming performance without cluttering
+                        your system with multiple monitoring tools.
+                        <br><br>
+
+                        <span class="highlight">
+                            Essential information, when you need it.
+                        </span>
+                        Nothing more than necessary.
+                    </p>
+
+                </div>
+
+            </div>
+
         </div>
+    </section>
 
-        <div class="footer-text">
-            © 2026 Vitals. Built for gamers.
+    <!-- DOWNLOAD -->
+
+    <section class="download-section" id="download">
+        <div class="container">
+
+            <div class="download-card">
+
+                <div class="download-content">
+
+                    <img src="vitals-logo.png"
+                         alt="Vitals Logo"
+                         class="download-logo">
+
+                    <h2>Ready to try Vitals?</h2>
+
+                    <p>
+                        Download the standalone Windows application
+                        and start monitoring your gaming performance.
+                    </p>
+
+                    <a href="https://github.com/Lexflashz/Vitals/releases/download/v1.0.0/Vitals.Overlay.exe"
+                       target="_blank"
+                       rel="noopener noreferrer"
+                       class="button button-primary">
+                        ↓ Download Vitals
+                    </a>
+
+                    <div class="download-details">
+                        Windows · Standalone Application · Version 1.0.0
+                    </div>
+
+                </div>
+
+            </div>
+
         </div>
+    </section>
 
-    </div>
-</footer>
+    <!-- SUPPORT -->
+
+    <section class="support-section" id="support">
+        <div class="container">
+
+            <div class="support-card">
+
+                <div>
+                    <h3>Need help or have feedback?</h3>
+
+                    <p>
+                        Have a question, found a bug, or want to suggest
+                        a feature? Feel free to get in touch.
+                    </p>
+                </div>
+
+                <a href="mailto:vitalsoverlay@gmail.com"
+                   class="support-link">
+                    vitalsoverlay@gmail.com →
+                </a>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer>
+        <div class="container footer-inner">
+
+            <div class="footer-brand">
+                <img src="vitals-logo.png" alt="Vitals">
+                Vitals
+            </div>
+
+            <div class="footer-text">
+                © 2026 Vitals. Built for gamers.
+            </div>
+
+        </div>
+    </footer>
 
 </body>
 </html>
