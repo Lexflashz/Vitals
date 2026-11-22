@@ -1,0 +1,1076 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vitals — Gaming Performance Overlay</title>
+    <meta name="description" content="Vitals is a lightweight gaming overlay for monitoring FPS, CPU and GPU temperatures, with customizable heat warnings and automatic idle detection.">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="icon" type="image/png" href="vitals-logo.png">
+
+    <style>
+        :root {
+            --bg: #09090d;
+            --bg-secondary: #101016;
+            --card: #14141c;
+            --card-hover: #1a1a24;
+            --purple: #8b5cf6;
+            --purple-light: #a78bfa;
+            --purple-dark: #6d28d9;
+            --yellow: #facc15;
+            --white: #f5f5f7;
+            --muted: #9696a6;
+            --border: rgba(255,255,255,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--white);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: min(1120px, 90%);
+            margin: auto;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(9,9,13,0.85);
+            backdrop-filter: blur(18px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-inner {
+            height: 78px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 24px;
+            font-weight: 700;
+            letter-spacing: -1px;
+        }
+
+        .brand img {
+            width: 42px;
+            height: 42px;
+            object-fit: contain;
+        }
+
+        .brand span {
+            color: var(--purple-light);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+            color: var(--muted);
+            font-size: 14px;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        .nav-download {
+            background: var(--purple);
+            color: white !important;
+            padding: 11px 18px;
+            border-radius: 9px;
+            font-weight: 600;
+            transition: 0.2s;
+        }
+
+        .nav-download:hover {
+            background: var(--purple-dark);
+            transform: translateY(-1px);
+        }
+
+        /* HERO */
+
+        .hero {
+            position: relative;
+            padding: 110px 0 100px;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            width: 650px;
+            height: 650px;
+            background: radial-gradient(circle, rgba(139,92,246,0.16), transparent 70%);
+            top: -220px;
+            left: 50%;
+            transform: translateX(-50%);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            position: relative;
+            text-align: center;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .hero-logo {
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
+            margin-bottom: 28px;
+            filter: drop-shadow(0 0 30px rgba(139,92,246,0.25));
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border: 1px solid rgba(139,92,246,0.35);
+            background: rgba(139,92,246,0.08);
+            color: var(--purple-light);
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 24px;
+        }
+
+        .badge-dot {
+            width: 7px;
+            height: 7px;
+            background: var(--yellow);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--yellow);
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(48px, 7vw, 82px);
+            font-weight: 700;
+            line-height: 1.05;
+            letter-spacing: -4px;
+            margin-bottom: 24px;
+        }
+
+        h1 span {
+            background: linear-gradient(120deg, #a78bfa, #7c3aed);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .hero-description {
+            color: var(--muted);
+            font-size: 18px;
+            line-height: 1.8;
+            max-width: 680px;
+            margin: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 35px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            padding: 15px 25px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: 0.25s;
+        }
+
+        .button-primary {
+            background: var(--purple);
+            color: white;
+            box-shadow: 0 5px 30px rgba(139,92,246,0.2);
+        }
+
+        .button-primary:hover {
+            background: var(--purple-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 35px rgba(139,92,246,0.35);
+        }
+
+        .button-secondary {
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.03);
+            color: white;
+        }
+
+        .button-secondary:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-3px);
+        }
+
+        .windows-notice {
+            margin-top: 22px;
+            color: #777783;
+            font-size: 12px;
+        }
+
+        /* MOCK OVERLAY */
+
+        .preview-section {
+            padding: 30px 0 100px;
+        }
+
+        .preview-container {
+            max-width: 850px;
+            margin: auto;
+            position: relative;
+        }
+
+        .preview-glow {
+            position: absolute;
+            inset: -80px;
+            background: radial-gradient(circle, rgba(139,92,246,0.10), transparent 70%);
+            z-index: -1;
+        }
+
+        .overlay-preview {
+            background: rgba(15,15,22,0.95);
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 16px;
+            padding: 26px;
+            box-shadow: 0 25px 100px rgba(0,0,0,0.5);
+        }
+
+        .overlay-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .overlay-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-family: 'Space Grotesk', sans-serif;
+        }
+
+        .overlay-brand img {
+            width: 26px;
+            height: 26px;
+            object-fit: contain;
+        }
+
+        .live-indicator {
+            font-size: 10px;
+            color: #86efac;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .live-indicator::before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            background: #4ade80;
+            border-radius: 50%;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+
+        .stat {
+            background: #1a1a24;
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 22px;
+            border-radius: 12px;
+        }
+
+        .stat-label {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 34px;
+            font-weight: 700;
+        }
+
+        .stat-value small {
+            font-size: 15px;
+            color: var(--muted);
+        }
+
+        .stat-purple {
+            color: var(--purple-light);
+        }
+
+        .stat-yellow {
+            color: var(--yellow);
+        }
+
+        .stat-footer {
+            margin-top: 12px;
+            font-size: 11px;
+            color: var(--muted);
+        }
+
+        .preview-caption {
+            text-align: center;
+            color: #777783;
+            font-size: 12px;
+            margin-top: 18px;
+        }
+
+        /* FEATURES */
+
+        .section {
+            padding: 100px 0;
+        }
+
+        .section-heading {
+            text-align: center;
+            margin-bottom: 55px;
+        }
+
+        .section-label {
+            color: var(--purple-light);
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+        }
+
+        h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(32px, 5vw, 48px);
+            letter-spacing: -2px;
+            margin-bottom: 18px;
+        }
+
+        .section-description {
+            color: var(--muted);
+            font-size: 16px;
+            line-height: 1.8;
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 28px;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(139,92,246,0.4);
+            background: var(--card-hover);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(139,92,246,0.12);
+            border: 1px solid rgba(139,92,246,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            margin-bottom: 22px;
+        }
+
+        .feature-card h3 {
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .feature-card p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* WHY VITALS */
+
+        .why-section {
+            background: linear-gradient(180deg, transparent, rgba(139,92,246,0.04), transparent);
+        }
+
+        .why-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+        }
+
+        .why-content h2 {
+            text-align: left;
+        }
+
+        .why-content p {
+            color: var(--muted);
+            line-height: 1.9;
+            font-size: 15px;
+            margin-bottom: 20px;
+        }
+
+        .check-list {
+            list-style: none;
+            margin-top: 25px;
+        }
+
+        .check-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+            font-size: 14px;
+        }
+
+        .check {
+            color: var(--yellow);
+            font-weight: 700;
+        }
+
+        .why-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            padding: 35px;
+        }
+
+        .why-card img {
+            width: 75px;
+            height: 75px;
+            object-fit: contain;
+            margin-bottom: 25px;
+        }
+
+        .why-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .why-card p {
+            color: var(--muted);
+            line-height: 1.8;
+            font-size: 14px;
+        }
+
+        .why-card .highlight {
+            color: var(--purple-light);
+            font-weight: 600;
+        }
+
+        /* DOWNLOAD */
+
+        .download-section {
+            padding: 100px 0;
+        }
+
+        .download-card {
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #171323, #111118);
+            border: 1px solid rgba(139,92,246,0.3);
+            border-radius: 22px;
+            padding: 65px 35px;
+            text-align: center;
+        }
+
+        .download-card::before {
+            content: "";
+            position: absolute;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(139,92,246,0.15), transparent 70%);
+            top: -250px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .download-content {
+            position: relative;
+        }
+
+        .download-logo {
+            width: 85px;
+            height: 85px;
+            object-fit: contain;
+            margin-bottom: 20px;
+        }
+
+        .download-card h2 {
+            margin-bottom: 15px;
+        }
+
+        .download-card p {
+            color: var(--muted);
+            font-size: 15px;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        .download-details {
+            color: #777783;
+            font-size: 12px;
+            margin-top: 20px;
+        }
+
+        /* SUPPORT */
+
+        .support-section {
+            padding: 50px 0 80px;
+        }
+
+        .support-card {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 30px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            padding: 30px;
+            border-radius: 15px;
+        }
+
+        .support-card h3 {
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        .support-card p {
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.7;
+        }
+
+        .support-link {
+            color: var(--purple-light);
+            font-size: 14px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .support-link:hover {
+            color: white;
+        }
+
+        /* FOOTER */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 30px 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+        }
+
+        .footer-brand img {
+            width: 30px;
+            height: 30px;
+            object-fit: contain;
+        }
+
+        .footer-text {
+            color: #777783;
+            font-size: 12px;
+        }
+
+        /* RESPONSIVE */
+
+        @media (max-width: 800px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .why-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .why-content h2 {
+                text-align: center;
+            }
+
+            .why-content {
+                text-align: center;
+            }
+
+            .check-list {
+                display: inline-block;
+                text-align: left;
+            }
+
+            .hero {
+                padding: 80px 0;
+            }
+
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a:not(.nav-download) {
+                display: none;
+            }
+        }
+
+        @media (max-width: 550px) {
+            h1 {
+                letter-spacing: -2px;
+            }
+
+            .hero-description {
+                font-size: 15px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-value {
+                font-size: 28px;
+            }
+
+            .overlay-preview {
+                padding: 15px;
+            }
+
+            .support-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .download-card {
+                padding: 45px 20px;
+            }
+
+            .nav-inner {
+                height: 68px;
+            }
+
+            .brand {
+                font-size: 21px;
+            }
+
+            .brand img {
+                width: 35px;
+                height: 35px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav>
+    <div class="container nav-inner">
+        <a href="#" class="brand">
+            <img src="vitals-logo.png" alt="Vitals Logo">
+            Vitals<span>.</span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#features">Features</a>
+            <a href="#about">About</a>
+            <a href="#support">Support</a>
+            <a href="#download" class="nav-download">Download</a>
+        </div>
+    </div>
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+    <div class="container hero-content">
+
+        <img src="vitals-logo.png" alt="Vitals Performance Overlay" class="hero-logo">
+
+        <div class="badge">
+            <span class="badge-dot"></span>
+            Lightweight Gaming Overlay
+        </div>
+
+        <h1>
+            Know your PC.<br>
+            <span>Know your performance.</span>
+        </h1>
+
+        <p class="hero-description">
+            Monitor your FPS, CPU temperature and GPU temperature
+            while gaming. A simple, lightweight and customizable
+            overlay designed to keep you informed without getting
+            in the way.
+        </p>
+
+        <div class="hero-buttons">
+            <a href="https://www.mediafire.com/file/2stdy8jgo52908v/Vitals_Overlay.exe/file"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="button button-primary">
+                ↓ Download Vitals
+            </a>
+
+            <a href="#features" class="button button-secondary">
+                Explore Features →
+            </a>
+        </div>
+
+        <div class="windows-notice">
+            Currently available for Windows
+        </div>
+
+    </div>
+</section>
+
+<!-- OVERLAY PREVIEW -->
+
+<section class="preview-section">
+    <div class="container">
+        <div class="preview-container">
+
+            <div class="preview-glow"></div>
+
+            <div class="overlay-preview">
+
+                <div class="overlay-header">
+                    <div class="overlay-brand">
+                        <img src="vitals-logo.png" alt="">
+                        Vitals
+                    </div>
+
+                    <div class="live-indicator">
+                        Monitoring
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+
+                    <div class="stat">
+                        <div class="stat-label">Frame Rate</div>
+                        <div class="stat-value stat-purple">
+                            144 <small>FPS</small>
+                        </div>
+                        <div class="stat-footer">
+                            Performance monitoring
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <div class="stat-label">CPU Temperature</div>
+                        <div class="stat-value">
+                            58 <small>°C</small>
+                        </div>
+                        <div class="stat-footer">
+                            Processor temperature
+                        </div>
+                    </div>
+
+                    <div class="stat">
+                        <div class="stat-label">GPU Temperature</div>
+                        <div class="stat-value stat-yellow">
+                            67 <small>°C</small>
+                        </div>
+                        <div class="stat-footer">
+                            Graphics temperature
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <p class="preview-caption">
+                Illustrative preview — actual readings depend on your hardware and workload.
+            </p>
+
+        </div>
+    </div>
+</section>
+
+<!-- FEATURES -->
+
+<section class="section" id="features">
+    <div class="container">
+
+        <div class="section-heading">
+            <div class="section-label">Features</div>
+            <h2>Everything you need.<br>Nothing you don't.</h2>
+            <p class="section-description">
+                Vitals gives you essential performance information
+                without the complexity of traditional monitoring software.
+            </p>
+        </div>
+
+        <div class="features-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">🎮</div>
+                <h3>FPS Monitoring</h3>
+                <p>
+                    Keep track of your game's frame rate
+                    with an easy-to-read FPS counter.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🌡️</div>
+                <h3>CPU & GPU Temperatures</h3>
+                <p>
+                    Monitor processor and graphics card temperatures
+                    while you're playing.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🔥</div>
+                <h3>Heat Warnings</h3>
+                <p>
+                    Set your own temperature limits and receive
+                    visual warnings when your hardware gets too hot.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🎨</div>
+                <h3>Customizable Overlay</h3>
+                <p>
+                    Adjust the appearance of your overlay
+                    to suit your preferences and gaming setup.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3>Automatic Idle Mode</h3>
+                <p>
+                    When you're not gaming, Vitals automatically
+                    hides and pauses hardware monitoring.
+                </p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">🪶</div>
+                <h3>Lightweight</h3>
+                <p>
+                    Designed to keep things simple, without
+                    unnecessary background monitoring.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- ABOUT -->
+
+<section class="section why-section" id="about">
+    <div class="container">
+
+        <div class="why-grid">
+
+            <div class="why-content">
+                <div class="section-label">Why Vitals?</div>
+
+                <h2>Performance monitoring, simplified.</h2>
+
+                <p>
+                    Traditional monitoring setups can require several
+                    applications running simultaneously. Vitals brings
+                    essential gaming performance information into
+                    one standalone overlay.
+                </p>
+
+                <p>
+                    No need to configure RTSS, HWiNFO, MSI Afterburner
+                    or Steam just to see your FPS and temperatures.
+                </p>
+
+                <ul class="check-list">
+                    <li><span class="check">✓</span> Standalone application</li>
+                    <li><span class="check">✓</span> No RTSS requirement</li>
+                    <li><span class="check">✓</span> No HWiNFO requirement</li>
+                    <li><span class="check">✓</span> No MSI Afterburner requirement</li>
+                    <li><span class="check">✓</span> No Steam requirement</li>
+                    <li><span class="check">✓</span> Automatic idle detection</li>
+                </ul>
+            </div>
+
+            <div class="why-card">
+
+                <img src="vitals-logo.png" alt="Vitals Logo">
+
+                <h3>Built for gamers.</h3>
+
+                <p>
+                    Vitals was created to provide a simple way
+                    to check gaming performance without cluttering
+                    your system with multiple monitoring tools.
+                    <br><br>
+
+                    <span class="highlight">
+                        Essential information, when you need it.
+                    </span>
+                    Nothing more than necessary.
+                </p>
+
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- DOWNLOAD -->
+
+<section class="download-section" id="download">
+    <div class="container">
+
+        <div class="download-card">
+            <div class="download-content">
+
+                <img src="vitals-logo.png"
+                     alt="Vitals Logo"
+                     class="download-logo">
+
+                <h2>Ready to try Vitals?</h2>
+
+                <p>
+                    Download the standalone Windows application
+                    and start monitoring your gaming performance.
+                </p>
+
+                <a href="https://www.mediafire.com/file/2stdy8jgo52908v/Vitals_Overlay.exe/file"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="button button-primary">
+                    ↓ Download Vitals
+                </a>
+
+                <div class="download-details">
+                    Windows · Standalone Application
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<!-- SUPPORT -->
+
+<section class="support-section" id="support">
+    <div class="container">
+
+        <div class="support-card">
+
+            <div>
+                <h3>Need help or have feedback?</h3>
+                <p>
+                    Have a question, found a bug, or want to suggest
+                    a feature? Feel free to get in touch.
+                </p>
+            </div>
+
+            <a href="mailto:vitalsoverlay@gmail.com"
+               class="support-link">
+                vitalsoverlay@gmail.com →
+            </a>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+    <div class="container footer-inner">
+
+        <div class="footer-brand">
+            <img src="vitals-logo.png" alt="Vitals">
+            Vitals
+        </div>
+
+        <div class="footer-text">
+            © 2026 Vitals. Built for gamers.
+        </div>
+
+    </div>
+</footer>
+
+</body>
+</html>
